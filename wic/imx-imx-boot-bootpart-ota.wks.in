@@ -1,0 +1,26 @@
+# short-description: Create eMMC image with a OTA partitioning
+# long-description:
+# Create an image that can be written onto an eMMC using uuu for use
+# with i.MX SoC family
+# It uses u-boot + other binaries gathered together on imx-boot file,
+# and has an OTA A/B partitioning schema plus other persistent partitions
+# NOTE: customized partition schemes must start from this!
+#
+# The disk layout used is:
+#  - ---------- -------------- -------------- -------------- -------------- -------------- -------------
+# | | imx-boot |    boot A    |   rootfs A   |    boot B    |   rootfs B   |     data     |  OTA dwnld  |
+#  - ---------- -------------- -------------- -------------- -------------- -------------- -------------
+# ^ ^          ^              ^              ^              ^              ^              ^             ^
+# | |          |              |              |              |              |              |             |
+# 0 |        8MiB          72MiB          72MiB + 1GiB   136MiB + 1GiB   136MiB + 2GiB   136MiB + 3GiB  4.2GiB
+#   ${IMX_BOOT_SEEK} 32 or 33kiB, see reference manual
+#
+part u-boot --source rawcopy --sourceparams="file=imx-boot" --ondisk mmcblk --no-table --align ${IMX_BOOT_SEEK}
+part --source bootimg-partition --fstype=vfat --label bootA --active --align 8192 --fixed-size 64
+part --source rootfs --fstype=ext4 --label rootA --align 8192 --fixed-size 1G
+part --fstype=vfat --label bootB --active --align 8192 --fixed-size 64
+part --fstype=ext4 --label rootB --align 8192 --fixed-size 1G
+part --fstype=ext4 --label data --active --align 8192 --fixed-size 1G
+part --fstype=ext4 --label ota --align 8192  --size 1G
+
+bootloader --ptable gpt
