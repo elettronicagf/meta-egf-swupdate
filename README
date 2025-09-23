@@ -1,0 +1,31 @@
+This README file contains information on the contents of the meta-egf-swupdate layer.
+
+Please see the corresponding sections below for details.
+
+Dependencies
+============
+
+  URI: https://github.com/sbabic/meta-swupdate.git
+  branch: scarthgap
+
+Patches
+=======
+
+Please submit any patches against the meta-egf-swupdate layer to the maintainer:
+
+Maintainer: Mauro Salvini <mauro.salvini@elettronicagf.it>
+
+Table of Contents
+=================
+
+  I. Adding the meta-egf-swupdate layer to your build
+ II. Misc
+
+I. Adding the meta-egf-swupdate layer to your build
+=================================================
+
+Run 'bitbake-layers add-layer meta-egf-swupdate'
+
+II. Misc
+========
+
