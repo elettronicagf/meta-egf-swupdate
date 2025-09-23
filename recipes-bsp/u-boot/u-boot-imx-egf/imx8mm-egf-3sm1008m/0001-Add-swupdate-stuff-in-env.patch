@@ -1,0 +1,60 @@
+diff --git a/include/configs/egf_3sm1008.h b/include/configs/egf_3sm1008.h
+index e92099139d..6d35a7884b 100644
+--- a/include/configs/egf_3sm1008.h
++++ b/include/configs/egf_3sm1008.h
+@@ -85,6 +85,27 @@
+ 	"emmc_dev=2\0"\
+ 	"sd_dev=1\0" \
+ 
++#define CFG_SWU_ENV_SETTINGS \
++	"rootfspart=2\0" \
++	"altbootcmd=run do_rollback; run bootcmd;\0" \
++	"do_rollback=setenv upgrade_available 0; " \
++		     "setenv bootcount 0; " \
++		     "if test ${bootchain} = 0; then " \
++		         "setenv bootchain 1; " \
++		     "else " \
++		         "setenv bootchain 0; " \
++		     "fi; " \
++		     "saveenv;\0" \
++	"set_bootchain=if test ${bootchain} = 0; then " \
++				"setenv mmcpart 1; " \
++				"setenv rootfspart 2; " \
++			"else " \
++				"setenv mmcpart 3; " \
++				"setenv rootfspart 4; " \
++			"fi;\0"
++
++#define CFG_ENV_FLAGS_LIST_STATIC "upgrade_available:bw,bootchain:dw,bootcount:dw"
++
+ #define CONFIG_UPDATE_PACKAGE_HEADER_LENGTH 36
+ #define CONFIG_UPDATE_PACKAGE_LOADADDR 0x44000000 
+ #define CONFIG_UPDATE_PACKAGE_INITIAL_LOAD_LENGTH 0x4000064
+@@ -111,6 +132,7 @@
+ #else
+ #define CFG_EXTRA_ENV_SETTINGS		\
+ 	CFG_MFG_ENV_SETTINGS \
++	CFG_SWU_ENV_SETTINGS \
+ 	BOOTENV \
+ 	JAILHOUSE_ENV \
+ 	SR_IR_V2_COMMAND \
+@@ -130,9 +152,9 @@
+ 	"bootm_size=0x10000000\0" \
+ 	"mmcdev=2\0" \
+ 	"mmcpart=1\0" \
+-	"mmcroot=/dev/mmcblk2p2 rootwait rw quiet \0" \
++	"mmcroot=/dev/mmcblk2p${rootfspart} rootwait rw quiet \0" \
+ 	"mmcautodetect=yes\0" \
+-	"mmcargs=setenv bootargs ${jh_clk} ${mcore_clk} console=${console} root=${mmcroot}\0 " \
++	"mmcargs=setenv bootargs ${jh_clk} ${mcore_clk} console=${console} root=${mmcroot} panic=5\0 " \
+ 	"loadbootscript=fatload mmc ${mmcdev}:${mmcpart} ${loadaddr} ${bsp_script};\0" \
+ 	"bootscript=echo Running bootscript from mmc ...; " \
+ 		"source\0" \
+@@ -206,6 +228,7 @@
+ 	"bsp_bootcmd=echo Running BSP bootcmd ...; " \
+ 		"run usbboot; " \
+ 		"run usbboot_update; " \
++		"run set_bootchain;" \
+ 		"mmc dev ${mmcdev}; if mmc rescan; then " \
+ 		   "if run loadbootscript; then " \
+ 			   "run bootscript; " \
