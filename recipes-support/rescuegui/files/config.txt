@@ -1,0 +1,7 @@
+VERSION = "0.1"
+APP_ID = "SWUpdate Recovery App from EGF"
+LOGO = ""
+THEME_COLOR = "orange"
+NETWORK_INTERFACES = eth0
+MEDIAPATH = "/run/mount/sda"
+KEYPAD_DEVICE = "/dev/input/keyboard0"

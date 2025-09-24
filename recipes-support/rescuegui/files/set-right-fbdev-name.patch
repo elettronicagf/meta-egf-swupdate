@@ -1,0 +1,13 @@
+diff --git a/rec-lvgl-init.c b/rec-lvgl-init.c
+index e92099139d..6d35a7884b 100644
+--- a/rec-lvgl-init.c
++++ b/rec-lvgl-init.c
+@@ -42,7 +42,7 @@ static void gui_lvgl_initializeDisplayDriver(void)
+ 		exit(1);
+ 	}
+ 
+-	lv_linux_fbdev_set_file(displayObj, "/dev/fb");
++	lv_linux_fbdev_set_file(displayObj, "/dev/fb0");
+ 	lv_display_set_default(displayObj);
+ 
+ 	const lv_display_rotation_t displayRotation =
