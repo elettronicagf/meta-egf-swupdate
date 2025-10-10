@@ -24,7 +24,9 @@ Table of Contents
 I. Adding the meta-egf-swupdate layer to your build
 =================================================
 
-Run 'bitbake-layers add-layer meta-egf-swupdate'
+Run 'bitbake-layers add-layer meta-egf-swupdate' and then add
+'include conf/distro/include/swupdate.inc' in your distro or
+machine file
 
 II. Misc
 ========

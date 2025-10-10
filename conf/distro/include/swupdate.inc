@@ -1,0 +1,3 @@
+
+SWU_BOARDNAME ?= "${MACHINE}"
+SWU_BOARDREV ?= "revA"
