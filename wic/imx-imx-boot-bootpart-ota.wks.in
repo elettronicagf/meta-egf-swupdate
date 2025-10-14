@@ -18,9 +18,9 @@
 part u-boot --source rawcopy --sourceparams="file=imx-boot" --ondisk mmcblk --no-table --align ${IMX_BOOT_SEEK}
 part --source bootimg-partition --fstype=vfat --label bootA --active --align 8192 --fixed-size 64
 part --source rootfs --fstype=ext4 --label rootA --align 8192 --fixed-size 1G
-part --fstype=vfat --label bootB --active --align 8192 --fixed-size 64
+part --fstype=vfat --label bootB --align 8192 --fixed-size 64
 part --fstype=ext4 --label rootB --align 8192 --fixed-size 1G
-part --fstype=ext4 --label data --active --align 8192 --fixed-size 1G
+part --fstype=ext4 --label data --align 8192 --fixed-size 1G
 part --fstype=ext4 --label ota --align 8192  --size 1G
 
 bootloader --ptable gpt
