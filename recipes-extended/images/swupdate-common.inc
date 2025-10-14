@@ -5,7 +5,7 @@ IMAGE_INSTALL:append = " \
 			u-boot-fw-utils \
 "
 
-IMAGE_FSTYPES += "ext4.xz"
+IMAGE_FSTYPES += "ext4.zst"
 
 # allow SWUpdate to flash a .ext4 file and expand filesystem to partition limits
 IMAGE_INSTALL:append = " e2fsprogs-resize2fs"
