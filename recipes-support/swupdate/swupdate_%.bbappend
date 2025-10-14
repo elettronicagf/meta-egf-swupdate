@@ -17,6 +17,10 @@ do_install:append() {
 
     install -d ${D}${sysconfdir}
     install -m 644 ${WORKDIR}/swupdate.cfg ${D}${sysconfdir}
+
+    sed -i \
+    '\#ExecStart=.*#a ExecStopPost=/bin/sh -c "NAME=$(ls /tmp/%I/*.swu | head -n 1); [ \\"$EXIT_STATUS\\" == \\"0\\" ] && S=OK || S=KO; [ -n \\"$NAME\\" ] && mv $NAME $NAME.$S || true"' \
+    ${D}${systemd_system_unitdir}/swupdate-usb@.service
 }
 
 # TODO
