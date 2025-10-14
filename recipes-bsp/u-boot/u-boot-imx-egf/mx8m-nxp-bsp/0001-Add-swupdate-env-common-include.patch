@@ -1,0 +1,27 @@
+diff --git a/include/configs/egf_swu.h b/include/configs/egf_swu.h
+new file mode 100644
+index 0000000000..a49a81cbbe
+--- /dev/null
++++ b/include/configs/egf_swu.h
+@@ -0,0 +1,21 @@
++#define CFG_SWU_ENV_SETTINGS \
++	"rootfspart=2\0" \
++	"altbootcmd=run do_rollback; run bootcmd;\0" \
++	"do_rollback=setenv upgrade_available 0; " \
++		     "setenv bootcount 0; " \
++		     "if test ${bootchain} = 0; then " \
++		         "setenv bootchain 1; " \
++		     "else " \
++		         "setenv bootchain 0; " \
++		     "fi; " \
++		     "saveenv;\0" \
++	"set_bootchain=if test ${bootchain} = 0; then " \
++				"setenv mmcpart 1; " \
++				"setenv rootfspart 2; " \
++			"else " \
++				"setenv mmcpart 3; " \
++				"setenv rootfspart 4; " \
++		"fi; " \
++			"run set_mmcroot; \0"
++
++#define CFG_ENV_FLAGS_LIST_STATIC "upgrade_available:bw,bootchain:dw,bootcount:dw"
