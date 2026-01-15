@@ -31,3 +31,7 @@ machine file
 II. Misc
 ========
 
+Since TMPDIR for swupdate is moved in /mnt/ota (or whatever defined in SWU_TMPDIR variable
+in conf/distro/include/swupdate.inc), to invoke from CLI utilities like swupdate-progress
+and swupdate-client you need to add a heading "TMPDIR=/mnt/ota" to the command, e.g.
+    TMPDIR=/mnt/ota swupdate-client ...

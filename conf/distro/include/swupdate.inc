@@ -1,3 +1,5 @@
 
 SWU_BOARDNAME ?= "${MACHINE}"
 SWU_BOARDREV ?= "revA"
+
+SWU_TMPDIR ?= "/mnt/ota"
