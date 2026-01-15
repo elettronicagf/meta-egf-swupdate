@@ -4,7 +4,7 @@ PACKAGECONFIG_CONFARGS = ""
 
 SRC_URI += " \
 	    file://09-swupdate-args \
-	    file://swupdate.cfg \
+	    file://swupdate.config \
 	    file://swupdate.defaultenv \
 "
 
@@ -24,7 +24,7 @@ do_install:append() {
     sed -i "s#@BOARDREV@#${SWU_BOARDREV}#g" ${D}${libdir}/swupdate/conf.d/09-swupdate-args
 
     install -d ${D}${sysconfdir}
-    install -m 644 ${WORKDIR}/swupdate.cfg ${D}${sysconfdir}
+    install -m 644 ${WORKDIR}/swupdate.config ${D}${sysconfdir}/swupdate.cfg
 
     # rename .swu file after an update via USB
     sed -i \
