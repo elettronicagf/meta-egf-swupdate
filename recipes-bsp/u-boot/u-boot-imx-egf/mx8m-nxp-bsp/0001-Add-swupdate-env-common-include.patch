@@ -21,7 +21,7 @@ index 0000000000..a49a81cbbe
 +			"else " \
 +				"setenv mmcpart 3; " \
 +				"setenv rootfspart 4; " \
-+		"fi; " \
++			"fi; " \
 +			"run set_mmcroot; \0"
 +
 +#define CFG_ENV_FLAGS_LIST_STATIC "upgrade_available:bw,bootchain:dw,bootcount:dw"
