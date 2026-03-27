@@ -1,7 +1,8 @@
 
 IMAGE_INSTALL:append = " \
 			swupdate \
-			swupdate-tools \
+			swupdate-client \
+			swupdate-progress \
 			u-boot-fw-utils \
 "
 
